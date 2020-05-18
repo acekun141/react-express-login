@@ -3,14 +3,23 @@ import {createStore, applyMiddleware, compose} from 'redux';
 import createSagaMiddleware from 'redux-saga';
 import rootReducer from './rootReducer';
 import {routerMiddleware} from 'connected-react-router';
+import {persistReducer, persistStore} from 'redux-persist';
+import storage from 'redux-persist/lib/storage';
 
 export const history = createBrowserHistory();
 
 export const sagaMiddleware = createSagaMiddleware();
 
+const persistConfig = {
+    key: 'root',
+    storage,
+};
+
+const persistedReducer = persistReducer(persistConfig, rootReducer(history));
+
 export default function configureStore(preloadedState) {
     const store = createStore(
-        rootReducer(history),
+        persistedReducer,
         preloadedState,
         compose(
             applyMiddleware(
@@ -19,8 +28,9 @@ export default function configureStore(preloadedState) {
             )
         )
     )
+    let persistor = persistStore(store);
 
-    return store;
+    return {store, persistor};
 }
 
 // export default createStore(

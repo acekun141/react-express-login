@@ -20,6 +20,7 @@ class SigninPage extends React.Component {
         if (this.state.email && this.state.password) {
             this.props.signIn(this.state);
             this.setState(initialState);
+            this.props.history.push("/");
         };
     };
     handleChange = (event) => {

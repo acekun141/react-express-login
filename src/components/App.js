@@ -1,4 +1,5 @@
 import React from 'react';
+import Header from './Header';
 import HomePage from '../pages/HomePage';
 import SigninPage from '../pages/SigninPage';
 import RegisterPage from '../pages/RegisterPage';
@@ -14,6 +15,7 @@ class App extends React.Component {
             <Router>
                 <Switch>
                     <Route exact path='/'>
+                        <Header/>
                         <HomePage/>
                     </Route>
                     <Route path='/signin' component={SigninPage}/>
