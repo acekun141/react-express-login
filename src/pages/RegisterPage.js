@@ -1,21 +1,41 @@
-import React from "react";
+import React from 'react';
+import {register} from '../services/userService';
 import { MDBContainer, MDBRow, MDBCol, MDBInput, MDBBtn } from 'mdbreact';
+
+const initialState = {
+    phone: '',
+    email: '',
+    password: '',
+    rePassword: '',
+    error: '',
+}
 
 class RegisterPage extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {
-            phone: '',
-            email: '',
-            password: '',
-            rePassword: '',
-        };
+        this.state = initialState;
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
+        this.validate = this.validate.bind(this);
     };
-    handleSubmit = (event) => {
+    validate = (form) => {
+        if (
+            form.phone && form.email &&
+            form.password && form.rePassword
+        ) {
+            if (form.password === form.rePassword) {
+                return false;
+            }
+        }
+        return true;
+    }
+    handleSubmit = async (event) => {
         event.preventDefault();
-        console.log(this.state);
+        if (!this.validate(this.state)) {
+            const result = await register(this.state.phone, this.state.email, this.state.password);
+            console.log(result);
+            this.setState(initialState);
+        }
     };
     handleChange = (event) => {
         this.setState({
@@ -27,7 +47,7 @@ class RegisterPage extends React.Component {
             <MDBContainer className="module-signin">
                 <MDBRow>
                     <MDBCol md="6" className="ml-auto mr-auto">
-                    <form>
+                    <form onSubmit={this.handleSubmit}>
                         <p className="h5 text-center mb-4">Register</p>
                         <div className="grey-text">
                             <MDBInput
@@ -72,14 +92,7 @@ class RegisterPage extends React.Component {
                         <div className="text-center">
                             <MDBBtn
                                 type="submit"
-                                disabled={
-                                    this.state.email &&
-                                    this.state.password &&
-                                    this.state.rePassword &&
-                                    this.state.phone
-                                        ? false
-                                        : true
-                                }
+                                disabled={this.validate(this.state)}
                             >
                                 Login
                             </MDBBtn>

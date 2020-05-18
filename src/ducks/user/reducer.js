@@ -1,11 +1,11 @@
+import {SET_USER} from './actionTypes';
+
 const intiailState = '';
 
 export default function (state = intiailState, action) {
     switch (action.type) {
-        case 'SIGNIN':
-            return state
-        case 'REGISTER':
-            return state
+        case SET_USER:
+            return action.payload
         default:
             return state
     }

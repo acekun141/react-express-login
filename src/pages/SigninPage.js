@@ -1,19 +1,27 @@
-import React from "react";
-import { MDBContainer, MDBRow, MDBCol, MDBInput, MDBBtn } from 'mdbreact';
+import React from 'react';
+import {connect} from 'react-redux';
+import {signIn} from '../ducks/user/actions';
+import {MDBContainer, MDBRow, MDBCol, MDBInput, MDBBtn} from 'mdbreact';
+
+const initialState = {
+    email: '',
+    password: '',
+}
 
 class SigninPage extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {
-            email: '',
-            password: '',
-        };
+        this.state = initialState;
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
     };
     handleSubmit = (event) => {
         event.preventDefault();
-        console.log(this.state);
+        if (this.state.email && this.state.password) {
+            const result = this.props.signIn(this.state);
+            console.log(result);
+            this.setState(initialState);
+        };
     };
     handleChange = (event) => {
         this.setState({
@@ -25,7 +33,7 @@ class SigninPage extends React.Component {
             <MDBContainer className="module-signin">
                 <MDBRow>
                     <MDBCol md="6" className="ml-auto mr-auto">
-                    <form>
+                    <form onSubmit={this.handleSubmit}>
                         <p className="h5 text-center mb-4">Sign in</p>
                         <div className="grey-text">
                             <MDBInput
@@ -67,5 +75,11 @@ class SigninPage extends React.Component {
         );
     };
 };
+
+const mapDispatchToProps = {
+    signIn: signIn
+};
+
+SigninPage = connect(null, mapDispatchToProps)(SigninPage)
 
 export default SigninPage;
