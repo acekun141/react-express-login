@@ -9,16 +9,21 @@ import 'mdbreact/dist/css/mdb.css';
 // scss
 import './sass/main.scss';
 // store
-import store, {sagaMiddleware} from './ducks/store';
-// import store from './ducks/store';
+import configureStore, {sagaMiddleware, history} from './ducks/store';
 // sagas
 import userSaga from './ducks/user/sagas';
+
+import {ConnectedRouter} from 'connected-react-router';
+
+const store = configureStore();
 
 sagaMiddleware.run(userSaga);
 
 ReactDOM.render(
   <Provider store={store}>
-    <App/>
+    <ConnectedRouter history={history}>
+      <App/>
+    </ConnectedRouter>
   </Provider>,
   document.getElementById('root')
 );

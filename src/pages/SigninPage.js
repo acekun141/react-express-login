@@ -18,8 +18,7 @@ class SigninPage extends React.Component {
     handleSubmit = (event) => {
         event.preventDefault();
         if (this.state.email && this.state.password) {
-            const result = this.props.signIn(this.state);
-            console.log(result);
+            this.props.signIn(this.state);
             this.setState(initialState);
         };
     };
