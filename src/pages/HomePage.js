@@ -3,7 +3,7 @@ import {connect} from 'react-redux';
 
 let HomePage = ({user}) => {
     return (
-        <div>
+        <div className="module-homepage">
             <h2>Home Page</h2>
             <p>{user.phone}</p>
             <p>{user.email}</p>

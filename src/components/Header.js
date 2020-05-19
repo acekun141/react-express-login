@@ -4,7 +4,7 @@ import {Link} from 'react-router-dom';
 class Header extends React.Component {
     render() {
         return (
-            <div className='header'>
+            <div className='module-header'>
                 <Link to='/signin'>Sign In</Link>
                 <Link to='/register'>Register</Link>
             </div>
