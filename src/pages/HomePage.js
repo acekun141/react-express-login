@@ -2,7 +2,6 @@ import React from 'react';
 import {connect} from 'react-redux';
 
 let HomePage = ({user}) => {
-    console.log(user)
     return (
         <div>
             <h2>Home Page</h2>

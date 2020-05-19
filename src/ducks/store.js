@@ -13,6 +13,7 @@ export const sagaMiddleware = createSagaMiddleware();
 const persistConfig = {
     key: 'root',
     storage,
+    blacklist: ['router']
 };
 
 const persistedReducer = persistReducer(persistConfig, rootReducer(history));
@@ -31,9 +32,4 @@ export default function configureStore(preloadedState) {
     let persistor = persistStore(store);
 
     return {store, persistor};
-}
-
-// export default createStore(
-//     rootReducer,
-//     applyMiddleware(sagaMiddleware)
-// )
+};

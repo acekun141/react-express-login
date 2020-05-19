@@ -12,18 +12,16 @@ import {
 class App extends React.Component {
     render() {
         return (
-            <Router>
-                <Switch>
-                    <Route exact path='/'>
-                        <Header/>
-                        <HomePage/>
-                    </Route>
-                    <Route path='/signin' component={SigninPage}/>
-                    <Route path='/register'>
-                        <RegisterPage/>
-                    </Route>
-                </Switch>
-            </Router>
+            <Switch>
+                <Route exact path='/'>
+                    <Header/>
+                    <HomePage/>
+                </Route>
+                <Route path='/signin' component={SigninPage}/>
+                <Route path='/register'>
+                    <RegisterPage/>
+                </Route>
+            </Switch>
         )
     };
 }
